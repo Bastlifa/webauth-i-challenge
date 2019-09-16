@@ -1,7 +1,7 @@
 const express = require('express')
 const bcryptjs = require('bcryptjs')
 const users = require('./usersHelper')
-const restriced = require('../auth/restricted-middleware')
+const restricted = require('../auth/restricted-middleware')
 
 const router = express.Router()
 
@@ -27,7 +27,8 @@ router.post('/login', (req, res) =>
     else
     {
         let { username, password } = req.body
-        users.findBy(username).first()
+        console.log(username, password)
+        users.findBy({username}).first()
             .then(user =>
                 {
                     if(user && bcryptjs.compareSync(password, user.password)) 
@@ -42,6 +43,7 @@ router.post('/login', (req, res) =>
                 })
             .catch(error =>
                 {
+                    console.log('error', error)
                     res.status(500).json({ errorMessage: `Internal Error: Could not post login` })
                 })
     }
@@ -65,7 +67,10 @@ router.post('/register', (req, res) =>
                 })
             .catch(error =>
                 {
+                    console.log(error)
                     res.status(500).json({ errorMessage: `Internal Error: Could not register` })
                 })
     }
 })
+
+module.exports = router
