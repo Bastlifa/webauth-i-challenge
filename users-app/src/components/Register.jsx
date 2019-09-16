@@ -53,7 +53,7 @@ const Register = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.registerUser(creds, props.history);
+        dispatch(registerUser(creds, props.history));
     };
 
 

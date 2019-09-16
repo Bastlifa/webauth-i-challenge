@@ -2,10 +2,14 @@ const express = require('express')
 const bcryptjs = require('bcryptjs')
 const users = require('./usersHelper')
 const restricted = require('../auth/restricted-middleware')
+const cors = require('cors')
+const uuidv4 = require('uuid/v4')
 
 const router = express.Router()
 
-router.get('/users', restricted, (req, res) =>
+router.use(cors())
+
+router.get('/users', (req, res) =>
 {
     users.find()
         .then(response =>
@@ -33,7 +37,7 @@ router.post('/login', (req, res) =>
                 {
                     if(user && bcryptjs.compareSync(password, user.password)) 
                     {
-                        res.status(200).json({ message: `Welcome ${user.username}!` })
+                        res.status(200).json({ message: `Welcome ${user.username}!`, token: uuidv4() })
                         //TODO: send cookie with res
                     }
                     else
@@ -63,7 +67,7 @@ router.post('/register', (req, res) =>
         users.add(user)
             .then(response =>
                 {
-                    res.status(201).json(response)
+                    res.status(201).json({response,  token: uuidv4()})
                 })
             .catch(error =>
                 {

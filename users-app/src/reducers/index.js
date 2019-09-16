@@ -20,7 +20,7 @@ const initialState =
 
 export const reducer = (state = initialState, action) =>
 {
-    switch(action.payload)
+    switch(action.type)
     {
         case LOGIN_START:
             return {
@@ -67,10 +67,11 @@ export const reducer = (state = initialState, action) =>
                 error: "",
             }
         case GET_USERS_SUCCESS:
+            console.log('action from reducer', action.payload)
             return {
                 ...state,
                 isLoading: false,
-        
+                users: action.payload.data,
                 error: "",
             }
         case GET_USERS_FAIL:

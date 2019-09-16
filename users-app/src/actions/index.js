@@ -9,5 +9,6 @@ export {
     GET_USERS_SUCCESS,
     GET_USERS_FAIL,
     loginUser,
-    registerUser
+    registerUser,
+    getUsers
 } from './usersActions'

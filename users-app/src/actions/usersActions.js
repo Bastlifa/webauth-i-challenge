@@ -11,7 +11,7 @@ export const GET_USERS_START = "GET_USERS_START"
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS"
 export const GET_USERS_FAIL = "GET_USERS_FAIL"
 
-const endpoint = ''
+const endpoint = 'http://localhost:5000/api'
 
 export const registerUser = (regInfo, history) => dispatch =>
 {
@@ -23,7 +23,8 @@ export const registerUser = (regInfo, history) => dispatch =>
             {
                 console.log(`res from register: `, res)
                 dispatch({ type: REGISTER_SUCCESS })
-                history.push(`${endpoint}/login`)
+                localStorage.setItem('token', res.data.token)
+                history.push(`/home`)
             })
         .catch(err =>
             {
@@ -32,20 +33,39 @@ export const registerUser = (regInfo, history) => dispatch =>
             })
 }   
 
-export const loginUser = (loginInfo) => dispatch =>
+export const loginUser = (loginInfo, history) => dispatch =>
 {
     dispatch({ type: LOGIN_START })
 
     axiosWithAuth()
-        .post(`${endpoint}`, (loginInfo))
+        .post(`${endpoint}/login`, (loginInfo))
             .then(res =>
                 {
                     console.log("res from loginUser:", res)
                     dispatch({ type: LOGIN_SUCCESS, payload: res })
+                    localStorage.setItem('token', res.data.token)
+                    history.push('/home')
                 })
             .catch(err =>
                 {
                     console.log("err from loginUser:", err)
                     dispatch({ type: LOGIN_FAIL, payload: err })
+                })
+}
+
+export const getUsers = () => dispatch =>
+{
+    dispatch({ type: GET_USERS_START })
+    axiosWithAuth()
+        .get(`${endpoint}/users`)
+            .then(res =>
+                {
+                    console.log('res from getUsers', res)
+                    dispatch({ type: GET_USERS_SUCCESS, payload: res })
+                })
+            .catch(err =>
+                {
+                    console.log('err from getUsers', err)
+                    dispatch({ type: GET_USERS_FAIL, payload: err })
                 })
 }

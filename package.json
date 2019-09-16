@@ -21,9 +21,11 @@
   "homepage": "https://github.com/Bastlifa/webauth-i-challenge#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.19.4",
     "nodemon": "^1.19.2",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.0",
+    "uuid": "^3.3.3"
   }
 }
