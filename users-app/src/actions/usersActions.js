@@ -37,7 +37,7 @@ export const loginUser = (loginInfo) => dispatch =>
     dispatch({ type: LOGIN_START })
 
     axiosWithAuth()
-        .post(`${baseURL}`, (loginInfo))
+        .post(`${endpoint}`, (loginInfo))
             .then(res =>
                 {
                     console.log("res from loginUser:", res)

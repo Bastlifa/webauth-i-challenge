@@ -1,6 +1,22 @@
 import {  
-
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    REGISTER_START,
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    GET_USERS_START,
+    GET_USERS_SUCCESS,
+    GET_USERS_FAIL,
 } from '../actions'
+
+const initialState =
+{
+    users: [],
+    isLoading: false,
+    error: '',
+
+}
 
 export const reducer = (state = initialState, action) =>
 {
