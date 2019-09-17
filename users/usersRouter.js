@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.use(cors())
 
-router.get('/users', (req, res) =>
+router.get('/users', restricted, (req, res) =>
 {
     users.find()
         .then(response =>
@@ -31,13 +31,13 @@ router.post('/login', (req, res) =>
     else
     {
         let { username, password } = req.body
-        console.log(username, password)
         users.findBy({username}).first()
             .then(user =>
                 {
                     if(user && bcryptjs.compareSync(password, user.password)) 
                     {
-                        res.status(200).json({ message: `Welcome ${user.username}!`, token: uuidv4() })
+                        req.session.userid = user.id
+                        res.status(200).json({ message: `Welcome ${user.username}!`})
                         //TODO: send cookie with res
                     }
                     else
@@ -75,6 +75,19 @@ router.post('/register', (req, res) =>
                     res.status(500).json({ errorMessage: `Internal Error: Could not register` })
                 })
     }
+})
+
+router.get('/logout', (req, res) =>
+{
+    if(req.session)
+    {
+        req.session.destroy(err =>
+            {
+                if(err) res.status(500).json({ message: 'failed to logout' })
+                else res.status(200).json({ message: 'Goodbye' })
+            })
+    }
+    else res.status(200).json({ message: 'You weren\'t logged in to begin with' })
 })
 
 module.exports = router
