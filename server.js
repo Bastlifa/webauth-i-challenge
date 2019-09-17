@@ -5,6 +5,8 @@ const session = require('express-session')
 const KnexSessionStore = require('connect-session-knex')(session)
 const dbConnection = require('./data/db-config')
 
+const server = express()
+
 const sessionConfig =
 {
     name: 'cookiename',
@@ -28,12 +30,12 @@ const sessionConfig =
     )
 }
 
-const server = express()
+
 
 server.use(express.json())
+// server.use(cors())
 server.use(session(sessionConfig))
 server.use('/api', usersRouter)
-server.use(cors())
 
 server.get('/', (req, res) =>
 {

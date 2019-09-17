@@ -25,13 +25,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = props => {
-    useEffect(() =>
-        {
-        if(localStorage.getItem('token'))
-        {
-            props.history.push('/home')
-        }
-        }, []) //eslint-disable-line
 
     const [creds, setCreds] = useState({
         username: '',

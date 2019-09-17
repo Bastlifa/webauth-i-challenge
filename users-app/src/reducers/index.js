@@ -8,6 +8,9 @@ import {
     GET_USERS_START,
     GET_USERS_SUCCESS,
     GET_USERS_FAIL,
+    LOGOUT_START,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
 } from '../actions'
 
 const initialState =
@@ -75,6 +78,20 @@ export const reducer = (state = initialState, action) =>
                 error: "",
             }
         case GET_USERS_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            }
+        case LOGOUT_START:
+            return {
+                ...state,
+                isLoading: true,
+                error: "",
+            }
+        case LOGOUT_SUCCESS:
+            return initialState
+        case LOGOUT_FAIL:
             return {
                 ...state,
                 isLoading: false,

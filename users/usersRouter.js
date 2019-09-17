@@ -3,11 +3,16 @@ const bcryptjs = require('bcryptjs')
 const users = require('./usersHelper')
 const restricted = require('../auth/restricted-middleware')
 const cors = require('cors')
-const uuidv4 = require('uuid/v4')
+// const uuidv4 = require('uuid/v4')
 
+const corsConfig = 
+{
+    origin: 'http://localhost:3000',
+    credentials: true
+}
 const router = express.Router()
 
-router.use(cors())
+router.use(cors(corsConfig))
 
 router.get('/users', restricted, (req, res) =>
 {

@@ -29,14 +29,6 @@ const Register = props => {
     const dispatch = useDispatch()
     const state = useSelector(state => state)
 
-    useEffect(() =>
-        {
-        if(localStorage.getItem('token'))
-        {
-            props.history.push('/home')
-        }
-        }, []) //eslint-disable-line
-
     const [creds, setCreds] = useState({
         username: '',
         password: ''

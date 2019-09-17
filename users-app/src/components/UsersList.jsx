@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {useSelector, useDispatch} from "react-redux"
-import {getUsers} from "../actions"
+import {getUsers, logoutUser} from "../actions"
 import { UserGrid, UserCard } from './Styles'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +24,7 @@ const UsersList = props =>
     const classes = useStyles()
     useEffect(_ =>
         {
-            dispatch(getUsers())
+            dispatch(getUsers(props.history))
         }, [])
     useEffect(_ =>
         {
@@ -34,7 +34,7 @@ const UsersList = props =>
 
     const handleLogout = _ =>
     {
-        localStorage.removeItem('token')
+        dispatch(logoutUser())
         props.history.push('/')
     }
 

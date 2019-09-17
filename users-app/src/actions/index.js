@@ -8,7 +8,11 @@ export {
     GET_USERS_START,
     GET_USERS_SUCCESS,
     GET_USERS_FAIL,
+    LOGOUT_START,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
     loginUser,
+    logoutUser,
     registerUser,
     getUsers
 } from './usersActions'
